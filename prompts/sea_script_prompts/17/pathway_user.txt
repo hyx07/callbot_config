@@ -1,8 +1,0 @@
-The phone conversation between customer service and the client is as follows:
-*conversation begins*
-{conversation_print}
-*conversation ends*
-
-**output situation**
-based on the conversation:
-if you can determine that the client has made his payment method clear, output A

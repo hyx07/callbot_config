@@ -1,9 +1,0 @@
-The phone conversation between customer service and the client is as follows:
-*conversation begins*
-{conversation_print}
-*conversation ends*
-
-**output situation**
-based on the conversation:
-if you can determine that the client can not repay his loan due to the following reasons: no money, insufficient funds, prioritized other bills, or waiting for funds. Output A
-if you can determine that the client can not repay his loan due to the following reasons: death, calamity, hospitalization, scammed, or robbed. Output B

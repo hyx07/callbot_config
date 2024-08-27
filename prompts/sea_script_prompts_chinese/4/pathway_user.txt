@@ -1,9 +1,0 @@
-The phone conversation between customer service and the client is as follows:
-*conversation begins*
-{conversation_print}
-*conversation ends*
-
-**output situation**
-based on the conversation:
-if you can determine that the relationship between the client and {client_name}, like relative/friend, output A
-if you can determine that the client does not know {client_name}, output B

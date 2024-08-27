@@ -1,9 +1,0 @@
-The phone conversation between customer service and client is as follows:
-*conversation begins*
-{conversation_print}
-*conversation ends*
-
-**output situation**
-based on the conversation:
-if you determine that the client has no more questions or complaints about the app, output A
-if you determine that the client still has questions or complaints about the app, output B

@@ -1,6 +1,0 @@
-The phone conversation between customer service and the person who is answering the phone as follows:
-*conversation begins*
-{conversation_print}
-*conversation ends*
-
-Your output in json format is:

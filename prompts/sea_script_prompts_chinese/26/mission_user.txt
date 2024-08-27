@@ -1,7 +1,0 @@
-The phone conversation between customer service and the client is as follows:
-*conversation begins*
-{conversation_print}
-*conversation ends*
-
-the date of today is {date}.
-Your output in json format is:
