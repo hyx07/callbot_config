@@ -1,0 +1,12 @@
+The phone conversation between customer service and the client is as follows:
+*conversation begins*
+{conversation_print}
+*conversation ends*
+
+**info
+- valid payment methods are: app transfer and bank transfer. Cash is not valid.
+- App transfer is recommended as it is more efficient, and easy to use.
+
+**output situation**
+based on the conversation:
+if you can determine that the client has made his payment method clear, output A

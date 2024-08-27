@@ -1,0 +1,8 @@
+The telephone conversation between the customer service and the customer is as follows:
+*Conversation starts*
+{conversation_print}
+*Conversation ends*
+
+**Output**
+According to the conversation:
+If the customer replies to you, output A

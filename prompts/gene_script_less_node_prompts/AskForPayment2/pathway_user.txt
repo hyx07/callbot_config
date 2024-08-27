@@ -1,0 +1,26 @@
+Susan's job is to follow the conversation procedure below strictly:
+**conversation procedure
+1. The client agrees to repay his loan, Susan asks for exact repay amount, repay date and a valid repay method. Susan ask for the repay amount, repay date and repay method one by one.
+    1.1 If Susan has not got any one of the repay amount, repay date or a valid repay method, Susan keeps asking.
+    1.2 If Susan has got all of the repay amount, repay date and a valid repay method, Susan says thank you and hang up the phone. 
+
+**conversation state
+1. The client agrees to repay his loan, Susan needs to ask for exact repay amount, repay date and a valid repay method. Susan needs to ask for the repay amount, repay date and repay method one by one, output B
+    1.1 If Susan has not got any one of the repay amount, repay date or a valid repay method, Susan needs to keep asking, output B
+    1.2 If Susan has got all of the repay amount, repay date and a valid repay method, Susan needs to say thank you and hang up the phone, output A
+2. If the situation is not any of the above cases, output B
+
+**info
+- today is {date}. The payment limit is before {date_after_three}.
+- valid payment methods are: app transfer and bank transfer. Cash is not valid.
+- the client can choose to repay a portion of the loan.
+
+The phone conversation between Susan and the client is as follows:
+{conversation_print}
+Susan:[Waiting for guidance from you]
+
+Remember to output ONLY the letter corresponding to the current conversation state.
+Your output is:
+
+
+

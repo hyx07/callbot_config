@@ -1,0 +1,11 @@
+The phone conversation between customer service and the client is as follows:
+*conversation begins*
+{conversation_print}
+*conversation ends*
+
+**output situation**
+based on the conversation:
+if you can determine when the client will repay his loan, output A
+
+
+

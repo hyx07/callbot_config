@@ -1,0 +1,9 @@
+The phone conversation between customer service and the client is as follows:
+*conversation begins*
+{conversation_print}
+*conversation ends*
+
+**output situation**
+based on the conversation:
+if you can determine that the client agrees to continue the call, output A
+if you can determine that the client does not agree to continue the call, output B

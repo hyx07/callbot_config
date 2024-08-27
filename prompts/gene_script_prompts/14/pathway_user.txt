@@ -1,0 +1,8 @@
+The telephone conversation between the customer service and the customer is as follows:
+*Conversation starts*
+{conversation_print}
+*Conversation ends*
+
+**Output**
+Based on the conversation:
+If you can confirm that the customer clearly stated the repayment date, output A

@@ -1,0 +1,10 @@
+The telephone conversation between the customer service and the client is as follows:
+*Conversation starts*
+{conversation_print}
+*Conversation ends*
+
+**Output**
+Based on the conversation:
+If you can confirm that the client is {client_name} himself, then output A
+If you can confirm the relationship between the client and {client_name}, such as relatives/friends, then output B
+If you can confirm that the client does not know {client_name}, then output C

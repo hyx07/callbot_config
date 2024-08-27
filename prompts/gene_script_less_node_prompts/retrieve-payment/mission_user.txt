@@ -1,0 +1,7 @@
+The phone conversation between Susan and the client is as follows:
+*conversation begins*
+{conversation_print}
+*conversation ends*
+
+The date of today is {date}
+Your output in json format is:

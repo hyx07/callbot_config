@@ -1,0 +1,27 @@
+spiel_provider_type: 'llm'
+conv_manager_type: 'simple'
+trans_language: 'Chinese'
+dialog_language: 'English'
+llm_type: 'azure'
+llm_config:
+  api_key_name: "AZURE_gpt4o_eastjp"
+  api_version: '2024-06-01'
+  azure_endpoint: "https://openai-sea-japan.openai.azure.com/"
+
+spiel_provider:
+  dir_path: './prompts/client_prompts'
+  file_path: '/hyx01.txt'
+  trans_dir_path: './prompts/translate_prompts'
+  trans_file_path: './trans_prompt.txt'
+  dialog_file_path: './dialog_prompt.txt'
+  model_id: 'gpt-4o'
+  llm_ask_parameters:
+    temperature: 1.0
+    stream: false
+  llm_trans_parameters:
+    temperature: 0.5
+    stream: false
+  llm_dialog_trans_parameters:
+    temperature: 0.0
+    stream: false
+  is_translate: true

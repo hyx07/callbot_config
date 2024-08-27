@@ -1,0 +1,530 @@
+task_name: 'SeaMoney'
+conv_manager: 'visibility'
+
+global_variable:
+  date: 'August 16, 2024. Friday'
+  loan_name: 'NXMoney'
+  client_name: 'Mr. Steve Jordan'
+  OVERDUE_DATE: 'August 15, 2024'
+  LOAN_AMOUNT: '2000 dollars'
+  repayment_date_json_example: {"refuse_reason":"the client has no money.", "repayment_date":"August 20, 2024"}
+  loan_json_example1: {"loan_name":"Sea Credit"}
+  client_name_relationship_json_example: {"name":"Susan Jordan", "relationship":"Brother and sisters of the client"}
+  payment_method_json_example: {"repay_date":"August 20, 2024", "repay_method":"APP"}
+  partial_repayment_json_example: {"repay_date":"August 30, 2024", "repay_method":"by bank transfer", "repay_amount":"500 dollars"}
+  overdue_reason_json_example: {"overdue_reason":"be poor"}
+
+node_type_valid_for_global_node:
+  - 'single'
+  - 'multi'
+  - 'multi_2ask'
+  - 'instant'
+
+entry_node: 1
+
+unclear_trigger_prompt : "if the situation is not any of the above cases, output {target}"
+
+prompt_dir: './prompts/gene_script_prompts/'
+
+llm:
+  - llm_type: 'azure'
+    client_parameters:
+      api_key_name: "AZURE_gpt4o_eastjp"
+      api_version: '2024-06-01'
+      azure_endpoint: "https://openai-sea-japan.openai.azure.com/"
+
+node_config:
+  - node_index: 0
+    node_name: '0'
+    node_type: 'multi_2ask'
+    support_global: false
+    support_other: true
+    first_message: ['Hello, I am a representative from {loan_name}', 'Hello, this is {loan_name} Customer Service Center']
+    first_message_first: true
+    assistant_name: 'customer service'
+    client_name: 'client'
+    pathways:
+      A: 1
+    system_prompt_paths:
+      - '/pathway_sys.txt'
+      - '/mission_sys.txt'
+    user_prompt_paths:
+      - '/pathway_user.txt'
+    llm_ids: 
+      - 'gpt-4o'
+      - 'gpt-4o'
+    llm_ask_parameters:
+      - temperature: 0.0
+        stream: false
+        max_tokens: 1
+        logit_bias:
+          32: 100
+          33: 100
+      - temperature: 0.5
+        stream: true
+        max_tokens: 256
+    conversation:
+      visible_node_list: 'all'
+    visible_lines: 0
+
+  - node_index: 1
+    node_name: '1'
+    node_type: 'multi_2ask'
+    support_global: false
+    support_other: true
+    first_message: ['Hello, I am a representative from {loan_name}, Are you {client_name}?']
+    first_message_first: true
+    assistant_name: 'customer service'
+    pathways:
+      A: 2
+      B: 3
+      C: 4
+      D: 5
+    system_prompt_paths:
+      - '/pathway_sys.txt'
+      - '/mission_sys.txt'
+    user_prompt_paths:
+      - '/pathway_user.txt'
+    llm_ids: 
+      - 'gpt-4o'
+      - 'gpt-4o'
+    llm_ask_parameters:
+      - temperature: 0.0
+        stream: false
+        max_tokens: 1
+        logit_bias:
+          32: 100
+          33: 100
+          34: 100
+          35: 100
+          36: 100
+      - temperature: 0.5
+        stream: true
+        max_tokens: 256
+    conversation:
+      visible_node_list: 'all'
+
+
+  
+  - node_index: 4
+    node_name: '4'
+    node_type: 'multi_2ask'
+    support_global: false
+    support_other: true
+    first_message: "It's just a short call, can we talk now?"
+    first_message_first: true
+    assistant_name: 'customer service'
+    pathways:
+      A: 2
+      B: 5
+    system_prompt_paths:
+      - '/pathway_sys.txt'
+      - '/mission_sys.txt'
+    user_prompt_paths:
+      - '/pathway_user.txt'
+    llm_ids: 
+      - 'gpt-4o'
+      - 'gpt-4o'
+    llm_ask_parameters:
+      - temperature: 0.0
+        stream: false
+        max_tokens: 1
+        logit_bias:
+          32: 100
+          33: 100
+          34: 100
+      - temperature: 0.0
+        stream: true
+        max_tokens: 256
+    conversation:
+      visible_node_list: 'all'
+
+
+  - node_index: 5
+    node_name: '5'
+    node_type: 'end_call'
+    end_message: "Sorry for the interruption, but please inform {client_name} to pay the {loan_name} bill as soon as possible.We will be in touch again. Bye"
+    pathways:
+      A: 24
+
+
+  - node_index: 3
+    node_name: '3'
+    node_type: 'multi_2ask'
+    support_global: false
+    support_other: true
+    first_message: 'Do you know {client_name}?'
+    assistant_name: 'customer service'
+    pathways:
+      A: 2
+      B: 17
+    system_prompt_paths:
+      - '/pathway_sys.txt'
+      - '/mission_sys.txt'
+    user_prompt_paths:
+      - '/pathway_user.txt'
+    llm_ids: 
+      - 'gpt-4o'
+      - 'gpt-4o'
+    llm_ask_parameters:
+      - temperature: 0.0
+        stream: false
+        max_tokens: 1
+        logit_bias:
+          32: 100
+          33: 100
+          34: 100
+      - temperature: 0.0
+        stream: true
+        max_tokens: 256
+    conversation:
+      visible_node_list: 'all'
+
+  - node_index: 17
+    node_name: '17'
+    node_type: 'end_call'
+    end_message: "I'm sorry to bother you, but please remind {client_name} to make the payment on time.Bye"
+    pathways:
+      A: 27
+
+
+  - node_index: 27
+    node_name: '27'
+    node_type: 'retrieval'
+    retrieved_name : 'client_name_relationship'
+    assistant_name: 'customer service'
+    pathways:
+      'A': 24
+    llm_ids: 
+      - 'gpt-4o'
+    system_prompt_paths:
+      - '/mission_sys.txt'
+    user_prompt_paths:
+      - '/mission_user.txt'
+    llm_ask_parameters:
+      - temperature: 0.0
+        stream: false
+        response_format: 
+          type: "json_object"
+    conversation:
+      visible_node_list: 'all'
+
+
+  - node_index: 2
+    node_name: '2'
+    node_type: 'multi_2ask'
+    support_global: false
+    support_other: true
+    first_message: "Your loan of {LOAN_AMOUNT} has been overdue on {OVERDUE_DATE}, can you make the payment today?"
+    first_message_first: false
+    assistant_name: 'customer service'
+    pathways:
+      A: 6
+      B: 7
+      C: 8
+      D: 9
+    system_prompt_paths:
+      - '/pathway_sys.txt'
+      - '/mission_sys.txt'
+    user_prompt_paths:
+      - '/pathway_user.txt'
+    llm_ids: 
+      - 'gpt-4o'
+      - 'gpt-4o'
+    llm_ask_parameters:
+      - temperature: 0.0
+        stream: false
+        max_tokens: 1
+        logit_bias:
+          32: 100
+          33: 100
+          34: 100
+          35: 100
+          36: 100
+      - temperature: 0.0
+        stream: true
+        max_tokens: 256
+    conversation:
+      visible_node_list: 'all'
+
+  - node_index: 9
+    node_name: '9'
+    node_type: 'end_call'
+    end_message: "Okay, thank you. Have a good day, goodbye."
+    pathways:
+      A: 24
+
+
+  - node_index: 6
+    node_name: "6"
+    node_type: "multi_2ask"
+    support_global: false
+    support_other: true
+    first_message: "great, What method are you planning to use to make the payment?"
+    first_message_first: true
+    assistant_name: 'customer service'
+    client_name: 'client'
+    pathways:
+      A: 10
+    system_prompt_paths:
+      - '/pathway_sys.txt'
+      - '/mission_sys.txt'
+    user_prompt_paths:
+      - '/pathway_user.txt'
+    llm_ids: 
+      - 'gpt-4o'
+      - 'gpt-4o'
+    llm_ask_parameters:
+      - temperature: 0.0
+        stream: false
+        max_tokens: 1
+        logit_bias:
+          32: 100
+          33: 100
+      - temperature: 0.5
+        stream: true
+        max_tokens: 256
+    conversation:
+      visible_node_list: 'all'
+    visible_lines: 0
+
+
+  - node_index: 10
+    node_name: '10'
+    node_type: 'end_call'
+    end_message: "ok. Please remember to complete the payment on time. If you have any issues, please contact our staff"
+    pathways:
+      A: 26
+
+  
+  - node_index: 26
+    node_name: '26'
+    node_type: 'retrieval'
+    retrieved_name : 'payment_method_and_Amount'
+    assistant_name: 'customer service'
+    pathways:
+      'A': 24
+    llm_ids: 
+      - 'gpt-4o'
+    system_prompt_paths:
+      - '/mission_sys.txt'
+    user_prompt_paths:
+      - '/mission_user.txt'
+    llm_ask_parameters:
+      - temperature: 0.0
+        stream: false
+        response_format: 
+          type: "json_object"
+    conversation:
+      visible_node_list: 'all'
+
+
+  - node_index: 7
+    node_name: '7'
+    node_type: 'multi_2ask'
+    support_global: false
+    support_other: true
+    first_message: "So how much are you able to pay within the next three days - the full amount or just a partial payment?"
+    first_message_first: true
+    assistant_name: 'customer service'
+    pathways:
+      A: 6
+      B: 6
+      C: 14
+    system_prompt_paths:
+      - '/pathway_sys.txt'
+      - '/mission_sys.txt'
+    user_prompt_paths:
+      - '/pathway_user.txt'
+    llm_ids: 
+      - 'gpt-4o'
+      - 'gpt-4o'
+    llm_ask_parameters:
+      - temperature: 0.0
+        stream: false
+        max_tokens: 1
+        logit_bias:
+          32: 100
+          33: 100
+          34: 100
+          35: 100
+      - temperature: 0.0
+        stream: true
+        max_tokens: 256
+    conversation:
+      visible_node_list: 'all'
+
+
+  - node_index: 14
+    node_name: '14'
+    node_type: 'multi_2ask'
+    support_global: false
+    support_other: true
+    first_message: "So when do you plan to make the payment?"
+    first_message_first: true
+    assistant_name: 'customer service'
+    pathways:
+      A: 15
+    system_prompt_paths:
+      - '/pathway_sys.txt'
+      - '/mission_sys.txt'
+    user_prompt_paths:
+      - '/pathway_user.txt'
+    llm_ids: 
+      - 'gpt-4o'
+      - 'gpt-4o'
+    llm_ask_parameters:
+      - temperature: 0.0
+        stream: false
+        max_tokens: 1
+        logit_bias:
+          32: 100
+          33: 100
+      - temperature: 0.0
+        stream: true
+        max_tokens: 256
+    conversation:
+      visible_node_list: 'all'
+
+
+  - node_index: 15
+    node_name: '15'
+    node_type: 'end_call'
+    end_message: "I need to remind you that late payments will require additional interest charges. Perhaps a payment plan would be more suitable for you.Stay in touch. Goodbye."
+    pathways:
+      A: 22   
+
+
+  - node_index: 22
+    node_name: '22'
+    node_type: 'retrieval'
+    retrieved_name : 'repayment_date_and_refuse_reason'
+    assistant_name: 'customer service'
+    pathways:
+      'A': 24
+    llm_ids: 
+      - 'gpt-4o'
+    system_prompt_paths:
+      - '/mission_sys.txt'
+    user_prompt_paths:
+      - '/mission_user.txt'
+    llm_ask_parameters:
+      - temperature: 0.0
+        stream: false
+        response_format: 
+          type: "json_object"
+    conversation:
+      visible_node_list: 'all'
+
+
+  - node_index: 8
+    node_name: '8'
+    node_type: 'multi_2ask'
+    support_global: false
+    support_other: true
+    first_message: "Okay, I know So what is the reason you are unable to make the payment?"
+    first_message_first: true
+    assistant_name: 'customer service'
+    pathways:
+      A: 13
+      B: 18
+    system_prompt_paths:
+      - '/pathway_sys.txt'
+      - '/mission_sys.txt'
+    user_prompt_paths:
+      - '/pathway_user.txt'
+    llm_ids: 
+      - 'gpt-4o'
+      - 'gpt-4o'
+    llm_ask_parameters:
+      - temperature: 0.0
+        stream: false
+        max_tokens: 1
+        logit_bias:
+          32: 100
+          33: 100
+          34: 100
+      - temperature: 0.0
+        stream: true
+        max_tokens: 256
+    conversation:
+      visible_node_list: 'all'
+
+
+  - node_index: 18
+    node_name: '18'
+    node_type: 'end_call'
+    end_message: "Dear {client_name}, we understand and sympathize with your situation. We will give you enough time and space. When you are ready, we are willing to discuss possible solutions with you. Goodbye"
+    pathways:
+      A: 24     
+
+    
+  - node_index: 13
+    node_name: '13'
+    node_type: 'multi_2ask'
+    support_global: false
+    support_other: true
+    first_message: "Delayed payment will incur additional interest charges, and it may also adversely impact your personal credit. We still recommend that you find a way to make the payment as soon as possible."
+    first_message_first: true
+    assistant_name: 'customer service'
+    pathways:
+      A: 6
+      B: 7
+      C: 14
+      D: 14
+    system_prompt_paths:
+      - '/pathway_sys.txt'
+      - '/mission_sys.txt'
+    user_prompt_paths:
+      - '/pathway_user.txt'
+    llm_ids: 
+      - 'gpt-4o'
+      - 'gpt-4o'
+    llm_ask_parameters:
+      - temperature: 0.0
+        stream: false
+        max_tokens: 1
+        logit_bias:
+          32: 100
+          33: 100
+          34: 100
+          35: 100
+          36: 100
+      - temperature: 0.0
+        stream: true
+        max_tokens: 256
+    conversation:
+      visible_node_list: 'all'
+  
+  
+
+
+
+
+  - node_index: 24
+    node_name: '24'
+    node_type: 'end_session'
+
+global_node: null
+  # node_index: 25
+  # node_name: '25'
+  # node_type: 'global'
+  # condition_target: 'A'
+  # trigger_prompt: "if the client has questions about the company and has not been answered, output {target}"
+  # assistant_name: 'customer service'
+  # system_prompt_paths:
+  #   - '/condition_sys.txt'
+  #   - '/mission_sys.txt'
+  # user_prompt_paths:
+  #   - '/condition_user.txt'
+  # llm_ids: 
+  #   - 'gpt-4o'
+  #   - 'gpt-4o'
+  # llm_ask_parameters:
+  #   - temperature: 0.0
+  #     stream: false
+  #     max_tokens: 1
+  #   - temperature: 0.0
+  #     stream: true
+  # conversation:
+  #   visible_node_list: 'all'

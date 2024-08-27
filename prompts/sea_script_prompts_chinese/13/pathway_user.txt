@@ -1,0 +1,13 @@
+The phone conversation between customer service and the client is as follows:
+*conversation begins*
+{conversation_print}
+*conversation ends*
+
+**output situation**
+The date of today is {date}.
+The amount overdue for the client is {LOAN_AMOUNT}.
+based on the conversation:
+if you can determine that the client agrees to repay the loan within 3 days, output A
+if you can determine that the client agrees to repay only a portion or some amount of the loan within 3 days, output B
+if you can determine that the client can not repay anything within 3 days, output C
+if you can determine that the client can not repay due to the following reasons: death, calamity, hospitalization, scammed, or robbed. Output D

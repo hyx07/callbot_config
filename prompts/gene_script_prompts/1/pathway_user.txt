@@ -1,0 +1,11 @@
+The telephone conversation between the customer service and the customer is as follows:
+*Conversation starts*
+{conversation_print}
+*Conversation ends*
+
+**Output**
+According to the conversation:
+If it is confirmed that the customer is {client_name}, then output A
+If it is confirmed that the customer is not {client_name}, then output B
+If it is confirmed that the customer is currently busy and/or unwilling to communicate, then output C
+If it is confirmed that the customer does not know {client_name}, then output D

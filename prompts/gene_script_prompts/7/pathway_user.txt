@@ -1,0 +1,10 @@
+The telephone conversation between the customer service and the customer is as follows:
+*Conversation starts*
+{conversation_print}
+*Conversation ends*
+
+**Output**
+According to the conversation:
+If you can confirm that the customer has clearly stated that he will repay the full amount, then output A
+If you can confirm that the customer has clearly stated that he will repay part of the amount, then output B
+If you can confirm that the customer has clearly stated that he will refuse to repay, then output C
